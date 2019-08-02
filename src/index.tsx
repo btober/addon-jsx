@@ -94,8 +94,8 @@ interface JSXParameters {
   parameters?: { jsx?: JSXOptions };
 }
 
-export const jsxDecorator: StoryDecorator = function(
-  storyFn: RenderFunction,
+export const jsxDecorator = function(
+  story: string,
   parameters: JSXParameters
 ) {
   const defaultOpts = {
@@ -109,26 +109,29 @@ export const jsxDecorator: StoryDecorator = function(
   } as Required<JSXOptions>;
   const channel = addons.getChannel();
 
-  const story: ReturnType<typeof storyFn> & VueComponent = storyFn();
+//  const story: ReturnType<typeof storyFn> & VueComponent = storyFn();
   let jsx = '';
 
-  if (story.template) {
-    if (options.enableBeautify) {
-      jsx = beautifyHTML(story.template, options);
-    } else {
-      jsx = story.template;
-    }
-  } else {
-    const rendered = renderJsx(story, options);
+//  if (story.template) {
+//    if (options.enableBeautify) {
+//      jsx = beautifyHTML(story.template, options);
+//    } else {
+//      jsx = story.template;
+//    }
+//  } else {
+//    const rendered = renderJsx(story, options);
+//
+//    if (rendered) {
+//      jsx = rendered;
+//    }
+//  }
 
-    if (rendered) {
-      jsx = rendered;
-    }
-  }
+  jsx = beautifyHTML(story, options);
 
   channel.emit(EVENTS.ADD_JSX, parameters.id, jsx);
 
-  return <>{story}</>;
+//  return <>{story}</>;
+  return story;
 };
 
 export default {
