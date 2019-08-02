@@ -126,7 +126,7 @@ export const jsxDecorator = function(
 //    }
 //  }
 
-  jsx = beautifyHTML(story, options);
+  jsx = beautifyHTML(story.toString(), options);
 
   channel.emit(EVENTS.ADD_JSX, parameters.id, jsx);
 
