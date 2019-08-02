@@ -95,7 +95,8 @@ interface JSXParameters {
 }
 
 export const jsxDecorator = function(
-  story: string,
+// storyFn: RenderFunction,
+  storyFn: any,
   parameters: JSXParameters
 ) {
   const defaultOpts = {
@@ -110,6 +111,7 @@ export const jsxDecorator = function(
   const channel = addons.getChannel();
 
 //  const story: ReturnType<typeof storyFn> & VueComponent = storyFn();
+  const story = storyFn();
   let jsx = '';
 
 //  if (story.template) {
@@ -126,7 +128,7 @@ export const jsxDecorator = function(
 //    }
 //  }
 
-  jsx = beautifyHTML(story.toString(), options);
+  jsx = beautifyHTML(story, options);
 
   channel.emit(EVENTS.ADD_JSX, parameters.id, jsx);
 
